@@ -178,7 +178,8 @@ function receiveDataChannelMessage(event) {
 		fileProgress.value = fileSize;
 				
 		//Provide link to downloadable file when complete
-		if (fileSize == receivedFileSize) {
+		if (fileSize == receivedFileSize) 
+		{
 			var received = new window.Blob(fileBuffer);
 			fileBuffer = [];
 
