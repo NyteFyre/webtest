@@ -160,16 +160,14 @@ function dataChannelStateChanged() {
 	if (dataChannel.readyState === 'open') {
 		console.log("Data Channel open");
 		dataChannel.onmessage = receiveDataChannelMessage;
-		
+		fileTransferring = true;
 	}
 }
 
 function receiveDataChannel(event) {
 	console.log("Receiving a data channel");
 	dataChannel = event.channel;
-	fileTransferring = true;
-	dataChannel.onmessage = receiveDataChannelMessage;
-	fileTransferring = true;
+	dataChannel.onmessage = receiveDataChannelMessage;	
 }
 
 function receiveDataChannelMessage(event) {
@@ -182,8 +180,8 @@ function receiveDataChannelMessage(event) {
 		fileProgress.value = fileSize;
 				
 		//Provide link to downloadable file when complete
-		//if (fileSize == receivedFileSize) 
-		//{
+		if (fileSize == receivedFileSize) 
+		{
 			var received = new window.Blob(fileBuffer);
 			fileBuffer = [];
 
@@ -201,7 +199,7 @@ function receiveDataChannelMessage(event) {
 			div.className = 'message-out';
 			div.appendChild(linkTag);
 			messageHolder.appendChild(div);
-		//}
+		}
 	}
 	//else {
 	//	appendChatMessage(event.data, 'message-out');
@@ -243,7 +241,7 @@ sendFile.addEventListener('change', function(ev){
 	fileTransferring = true;
 						
 	fileProgress.max = file.size;
-	var chunkSize = 60 * 1000;
+	var chunkSize = 600000;
 	var sliceFile = function(offset) {
 		var reader = new window.FileReader();
 		reader.onload = (function() {
