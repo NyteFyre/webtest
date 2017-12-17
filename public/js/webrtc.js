@@ -167,7 +167,9 @@ function dataChannelStateChanged() {
 function receiveDataChannel(event) {
 	console.log("Receiving a data channel");
 	dataChannel = event.channel;
-	dataChannel.onmessage = receiveDataChannelMessage;	
+	fileTransferring = true;
+	dataChannel.onmessage = receiveDataChannelMessage;
+	fileTransferring = true;
 }
 
 function receiveDataChannelMessage(event) {
@@ -241,7 +243,7 @@ sendFile.addEventListener('change', function(ev){
 	fileTransferring = true;
 						
 	fileProgress.max = file.size;
-	var chunkSize = 65536;
+	var chunkSize = 60 * 1000;
 	var sliceFile = function(offset) {
 		var reader = new window.FileReader();
 		reader.onload = (function() {
