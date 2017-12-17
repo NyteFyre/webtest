@@ -239,7 +239,7 @@ sendFile.addEventListener('change', function(ev){
 	fileTransferring = true;
 						
 	fileProgress.max = file.size;
-	var chunkSize = 16384;
+	var chunkSize = 65536;
 	var sliceFile = function(offset) {
 		var reader = new window.FileReader();
 		reader.onload = (function() {
