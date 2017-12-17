@@ -5,7 +5,8 @@
 
 var express = require('express.io');
 var app = express();
-app.http().io();
+var io = require('socket.io')(https);
+app.https().io();
 var PORT = 3000;
 console.log('server started on port ' + PORT);
 
