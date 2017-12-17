@@ -168,13 +168,12 @@ function dataChannelStateChanged() {
 
 function receiveDataChannel(event) {
 	console.log("Receiving a data channel");
-	dataChannel = event.channel;
-	dataChannel.binaryType = "blob";	
+	dataChannel = event.channel;	
 	dataChannel.onmessage = receiveDataChannelMessage;
 }
 
 function receiveDataChannelMessage(event) {
-	console.log("From DataChannel: " + event.data);
+	console.log("From DataChannel: ", event.data);
 	if (fileTransferring) {
 		//Now here is the file handling code:
 		fileBuffer.push(event.data);
