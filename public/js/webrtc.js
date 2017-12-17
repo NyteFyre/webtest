@@ -170,7 +170,7 @@ function receiveDataChannel(event) {
 	dataChannel = event.channel;
 	fileTransferring = true;
 	dataChannel.onmessage = receiveDataChannelMessage;
-	fileTransferring = true;
+	
 }
 
 function receiveDataChannelMessage(event) {
