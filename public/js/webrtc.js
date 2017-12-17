@@ -180,7 +180,7 @@ function receiveDataChannelMessage(event) {
 		fileProgress.value = fileSize;
 				
 		//Provide link to downloadable file when complete
-		if (fileSize == receivedFileSize) 
+		if (fileSize === receivedFileSize) 
 		{
 			var received = new window.Blob(fileBuffer);
 			fileBuffer = [];
@@ -241,7 +241,7 @@ sendFile.addEventListener('change', function(ev){
 	fileTransferring = true;
 						
 	fileProgress.max = file.size;
-	var chunkSize = 600000;
+	var chunkSize = 65536;
 	var sliceFile = function(offset) {
 		var reader = new window.FileReader();
 		reader.onload = (function() {
