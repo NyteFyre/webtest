@@ -159,8 +159,9 @@ var fileTransferring = false;
 function dataChannelStateChanged() {
 	if (dataChannel.readyState === 'open') {
 		console.log("Data Channel open");
-		dataChannel.onmessage = receiveDataChannelMessage;
 		fileTransferring = true;
+		dataChannel.onmessage = receiveDataChannelMessage;
+		
 	}
 }
 
