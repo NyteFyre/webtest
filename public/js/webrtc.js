@@ -171,6 +171,7 @@ function receiveDataChannel(event) {
 
 function receiveDataChannelMessage(event) {
 	console.log("From DataChannel: ", event.data);
+	fileTransferring=true;
 	if (fileTransferring) {
 		//Now here is the file handling code:
 		fileBuffer.push(event.data);
