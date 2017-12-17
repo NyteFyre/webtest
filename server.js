@@ -17,7 +17,7 @@ app.get('/', function(req, res){
 	res.render('index.ejs');
 });
 
-server.listen(process.env.PORT || PORT);
+app.listen(process.env.PORT || PORT);
 
 app.io.route('signal', function(req) {
 	req.io.join(req.data);
