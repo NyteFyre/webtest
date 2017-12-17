@@ -171,7 +171,7 @@ function receiveDataChannel(event) {
 
 function receiveDataChannelMessage(event) {
 	console.log("From DataChannel: ", event.data);
-	if (fileTransferring) {
+	//if (fileTransferring) {
 		//Now here is the file handling code:
 		fileBuffer.push(event.data);
 		fileSize += event.data.byteLength;
@@ -196,7 +196,7 @@ function receiveDataChannelMessage(event) {
 			div.className = 'message-out';
 			div.appendChild(linkTag);
 			messageHolder.appendChild(div);
-		}
+		//}
 	}
 	//else {
 	//	appendChatMessage(event.data, 'message-out');
