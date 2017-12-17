@@ -198,9 +198,9 @@ function receiveDataChannelMessage(event) {
 			messageHolder.appendChild(div);
 		}
 	}
-	else {
-		appendChatMessage(event.data, 'message-out');
-	}
+	//else {
+	//	appendChatMessage(event.data, 'message-out');
+	//}
 }
 
 
@@ -251,7 +251,7 @@ sendFile.addEventListener('change', function(ev){
 			};
 		})(file);
 		var slice = file.slice(offset, offset + chunkSize);
-		reader.readAsText(slice);
+		reader.readAsArrayBuffer(slice);
 	};
 	sliceFile(0);
 	fileTransferring = false;
