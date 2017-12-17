@@ -16,8 +16,8 @@ var rtcPeerConn;
 var mainVideoArea = document.querySelector("#mainVideoTag");
 var smallVideoArea = document.querySelector("#smallVideoTag");
 var dataChannelOptions = {
-	ordered: true, //no guaranteed delivery, unreliable but faster 
-	maxRetransmitTime: 100, //milliseconds
+	ordered: false, //no guaranteed delivery, unreliable but faster 
+	maxRetransmitTime: 1000, //milliseconds
 };
 var dataChannel;
 
