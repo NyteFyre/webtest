@@ -160,14 +160,16 @@ function dataChannelStateChanged() {
 	if (dataChannel.readyState === 'open') {
 		console.log("Data Channel open");
 		dataChannel.onmessage = receiveDataChannelMessage;
-		fileTransferring = true;
+		
 	}
 }
 
 function receiveDataChannel(event) {
 	console.log("Receiving a data channel");
 	dataChannel = event.channel;
+	fileTransferring = true;
 	dataChannel.onmessage = receiveDataChannelMessage;
+	fileTransferring = true;
 }
 
 function receiveDataChannelMessage(event) {
