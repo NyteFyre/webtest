@@ -17,9 +17,9 @@ app.get('/', function(req, res){
 	res.render('index.ejs');
 });
 
-app.listen(process.env.PORT || PORT);
+server.listen(process.env.PORT || PORT);
 
-app.io.route('signal', function(req) {
+io.route('signal', function(req) {
 	req.io.join(req.data);
 	req.io.join('files');
 	app.io.room(req.data).broadcast('signal', {
@@ -30,7 +30,7 @@ app.io.route('signal', function(req) {
 	})
 })
 
-app.io.route('files', function(req) {
+io.route('files', function(req) {
 	req.io.room('files').broadcast('files', {
 		filename: req.data.filename,
 		filesize: req.data.filesize
