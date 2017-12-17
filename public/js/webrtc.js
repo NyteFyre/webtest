@@ -169,7 +169,7 @@ function dataChannelStateChanged() {
 function receiveDataChannel(event) {
 	console.log("Receiving a data channel");
 	dataChannel = event.channel;
-	dataChannel.binaryType = "arraybuffer";	
+	dataChannel.binaryType = "blob";	
 	dataChannel.onmessage = receiveDataChannelMessage;
 }
 
