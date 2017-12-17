@@ -251,7 +251,7 @@ sendFile.addEventListener('change', function(ev){
 			};
 		})(file);
 		var slice = file.slice(offset, offset + chunkSize);
-		reader.readAsBinaryString(slice);
+		reader.readAsDataURL(slice);
 	};
 	sliceFile(0);
 	fileTransferring = false;
