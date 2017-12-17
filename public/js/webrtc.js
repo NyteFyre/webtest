@@ -178,7 +178,7 @@ function receiveDataChannelMessage(event) {
 		fileProgress.value = fileSize;
 				
 		//Provide link to downloadable file when complete
-		if (fileSize === receivedFileSize) {
+		//if (fileSize === receivedFileSize) {
 			var received = new window.Blob(fileBuffer);
 			fileBuffer = [];
 
@@ -197,7 +197,7 @@ function receiveDataChannelMessage(event) {
 			div.appendChild(linkTag);
 			messageHolder.appendChild(div);
 		//}
-	}
+	//}
 	//else {
 	//	appendChatMessage(event.data, 'message-out');
 	//}
