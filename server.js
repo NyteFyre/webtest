@@ -5,7 +5,7 @@
 var https = require('https');
 var express = require('express.io');
 var app = express();
-var server = https.createServer(app);
+var server = https.createServer(app).listen(443);
 var io = require('socket.io')(server);
 app.http().io();
 var PORT = 443;
