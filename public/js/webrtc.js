@@ -1,25 +1,22 @@
 
-//SIGNALING CODE
+
+//webrtc.js:  This is where we will put the bulk of the webrtc related code
+
+////////SIGNALING CODE/////////////
 io = io.connect();
 var myName = "";
 var theirName = "";
 var myUserType = "";
-var configuration = { iceServers: [{
-                          urls: "turn:numb.viagenie.ca",
-                          username: "fazercreed@gmail.com", 
-                          credential: "fyrexfyre"
-                      }, {
-                          urls: [
-                                  "stun:stun.ekiga.net",
-                                  "stun:stun.ideasip.com"
-                          ]
-                      }]
+var configuration = {
+	'iceServers': [{
+		'url': 'stun:stun.l.google.com:19302'
+	}]
 };
 var rtcPeerConn;
 var mainVideoArea = document.querySelector("#mainVideoTag");
 var smallVideoArea = document.querySelector("#smallVideoTag");
 var dataChannelOptions = {
-	ordered: true, //no guaranteed delivery, unreliable but faster 
+	ordered: false, //no guaranteed delivery, unreliable but faster 
 	maxRetransmitTime: 1000, //milliseconds
 };
 var dataChannel;
@@ -69,7 +66,7 @@ function startSignaling() {
 	console.log("starting signaling...");
 	rtcPeerConn = new webkitRTCPeerConnection(configuration);
 	dataChannel = rtcPeerConn.createDataChannel('textMessages', dataChannelOptions);
-	dataChannel.binaryType = "arraybuffer";			
+				
 	dataChannel.onopen = dataChannelStateChanged;
 	rtcPeerConn.ondatachannel = receiveDataChannel;
 	
@@ -117,7 +114,7 @@ function sendLocalDesc(desc) {
 function logError(error) {
 }
 
-//MUTE/PAUSE STREAMS CODE
+//////////MUTE/PAUSE STREAMS CODE////////////
 var muteMyself = document.querySelector("#muteMyself");
 var pauseMyVideo = document.querySelector("#pauseMyVideo");
 
@@ -149,13 +146,13 @@ pauseMyVideo.addEventListener('click', function(ev){
 	ev.preventDefault();
 }, false);
 
-//Data Channels Code
+/////////////Data Channels Code///////////
 var messageHolder = document.querySelector("#messageHolder");
 var myMessage = document.querySelector("#myMessage");
 var sendMessage = document.querySelector("#sendMessage");
 var receivedFileName;
 var receivedFileSize;
-var fileBuffer = new ArrayBuffer(128);
+var fileBuffer = [];
 var fileSize = 0;
 var fileTransferring = false;
 
@@ -168,12 +165,12 @@ function dataChannelStateChanged() {
 
 function receiveDataChannel(event) {
 	console.log("Receiving a data channel");
-	dataChannel = event.channel;	
+	dataChannel = event.channel;
 	dataChannel.onmessage = receiveDataChannelMessage;
 }
 
 function receiveDataChannelMessage(event) {
-	console.log("From DataChannel: ", event.data);
+	console.log("From DataChannel: " + event.data);
 	if (fileTransferring) {
 		//Now here is the file handling code:
 		fileBuffer.push(event.data);
@@ -182,7 +179,7 @@ function receiveDataChannelMessage(event) {
 				
 		//Provide link to downloadable file when complete
 		if (fileSize === receivedFileSize) {
-			var received = new window.Blob([fileBuffer]);
+			var received = new window.Blob(fileBuffer);
 			fileBuffer = [];
 
 			downloadLink.href = URL.createObjectURL(received);
@@ -221,7 +218,7 @@ function appendChatMessage(msg, className) {
 	messageHolder.appendChild(div);
 }
 
-//File Transfer
+/////////////File Transfer///////////
 var sendFile = document.querySelector("input#sendFile");
 var fileProgress = document.querySelector("progress#fileProgress");
 var downloadLink = document.querySelector('a#receivedFileLink');
@@ -241,7 +238,7 @@ sendFile.addEventListener('change', function(ev){
 	fileTransferring = true;
 						
 	fileProgress.max = file.size;
-	var chunkSize = 1280;
+	var chunkSize = 16384;
 	var sliceFile = function(offset) {
 		var reader = new window.FileReader();
 		reader.onload = (function() {
@@ -260,7 +257,7 @@ sendFile.addEventListener('change', function(ev){
 	fileTransferring = false;
 }, false);
 
-//Share My Screen
+/////////////Share My Screen///////////
 var shareMyScreen = document.querySelector("#shareMyScreen");
 shareMyScreen.addEventListener('click', function(ev){
 	shareScreenText = "Share Screen";
@@ -301,4 +298,5 @@ shareMyScreen.addEventListener('click', function(ev){
 	
 	ev.preventDefault();
 }, false);
+
 
