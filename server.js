@@ -2,13 +2,13 @@
 
 //Server.js:  This is the core Node.js configuration code, and also used for
 //setting up signaling channels to be used by socket.io
-var https = require('https');
+//var https = require('https');
 var express = require('express.io');
 var app = express();
-var server = https.createServer(app);
-var io = require('socket.io')(server);
-//app.http().io();
-var PORT = 3000;
+//var server = https.createServer(app);
+//var io = require('socket.io')(server);
+app.http().io();
+var PORT = 443;
 console.log('server started on port ' + PORT);
 
 app.use(express.static(__dirname + '/public'));
@@ -17,9 +17,9 @@ app.get('/', function(req, res){
 	res.render('index.ejs');
 });
 
-server.listen(process.env.PORT || PORT);
+app.listen(process.env.PORT || PORT);
 
-io.route('signal', function(req) {
+app.io.route('signal', function(req) {
 	req.io.join(req.data);
 	req.io.join('files');
 	app.io.room(req.data).broadcast('signal', {
@@ -30,7 +30,7 @@ io.route('signal', function(req) {
 	})
 })
 
-io.route('files', function(req) {
+app.io.route('files', function(req) {
 	req.io.room('files').broadcast('files', {
 		filename: req.data.filename,
 		filesize: req.data.filesize
