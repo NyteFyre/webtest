@@ -171,14 +171,14 @@ function receiveDataChannel(event) {
 
 function receiveDataChannelMessage(event) {
 	console.log("From DataChannel: ", event.data);
-	//if (fileTransferring) {
+	if (fileTransferring) {
 		//Now here is the file handling code:
 		fileBuffer.push(event.data);
 		fileSize += event.data.byteLength;
 		fileProgress.value = fileSize;
 				
 		//Provide link to downloadable file when complete
-		//if (fileSize === receivedFileSize) {
+		if (fileSize == receivedFileSize) {
 			var received = new window.Blob(fileBuffer);
 			fileBuffer = [];
 
@@ -196,8 +196,8 @@ function receiveDataChannelMessage(event) {
 			div.className = 'message-out';
 			div.appendChild(linkTag);
 			messageHolder.appendChild(div);
-		//}
-	//}
+		}
+	}
 	//else {
 	//	appendChatMessage(event.data, 'message-out');
 	//}
